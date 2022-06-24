@@ -87,6 +87,23 @@ We use [Terraform](terraform.io) for these examples and the latest version is
 already installed in your GCP Cloudshell.
 
 
+## Create NFS volumes
+
+Create two NFS volumes using Google Cloud Filestore.  One for `/home` (3TB) and
+one for `/tools` (3TB).
+
+    cd ../storage
+    terraform init
+    terraform plan
+    terraform apply
+
+and wait for the resources to be created.  It can take a few minutes for the
+volume creation to complete.
+
+Note the output IP addresses reported from the `apply` as you'll need them
+in the next step to configure the slurm cluster.
+
+
 ## Create a Slurm cluster
 
 Create an example slurm cluster with a single `debug` partition that scales
@@ -106,7 +123,7 @@ cp gpu.tfvars.example gpu.tfvars
 
 Edit `gpu.tfvars` to set some missing variables.
 
-You need to edit 1 field: the project.
+You need to edit 3 fields: project, 2 server ips.
 
 Near the top, the project name (required) and the zone should match everywhere
 
@@ -114,6 +131,30 @@ Near the top, the project name (required) and the zone should match everywhere
 project      = "<project>" # replace this with your GCP project name
 ```
 
+and then further down, fix the config for your NFS volumes by changing the
+`server_ip` entries to match the values for the volumes created above
+
+```terraform
+# Optional network storage fields
+# network_storage is mounted on all instances
+# login_network_storage is mounted on controller and login instances
+network_storage = [{
+    server_ip     = "10.11.12.1" # from output of storage step above
+    remote_mount  = "/home"
+    local_mount   = "/home"
+    fs_type       = "nfs"
+    mount_options = "defaults,hard,intr"
+},{
+    server_ip     = "10.11.12.2" # from output of storage step above
+    remote_mount  = "/tools"
+    local_mount   = "/tools"
+    fs_type       = "nfs"
+    mount_options = "defaults,hard,intr"
+}]
+```
+
+Note the IP addresses for the NFS volumes come from the output of the "storage"
+steps above. This step may take a few minutes as well. 
 
 Next spin up the cluster.
 Still within the Slurm basic example directory above, run
@@ -278,6 +319,8 @@ From the `gpu-slurm-cluster` sub-directory, run
 
 ```bash
 terraform destroy -var-file gpu.tfvars -auto-approve
+cd ../storage
+terraform destroy -auto-approve
 ```
 
 ## What's next
