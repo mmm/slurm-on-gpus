@@ -74,8 +74,8 @@ All example commands below run from this Cloud Shell.
 Get the source
 
 ```bash
-git clone https://github.com/mmm/slurm-on-gcp-examples
-cd slurm-on-gcp-examples
+git clone https://github.com/mmm/slurm-on-gpus
+cd slurm-on-gpus
 ```
 
 All example commands below are relative to this top-level directory of the
@@ -148,39 +148,39 @@ External IP address was not found; defaulting to using IAP tunneling.
 Warning: Permanently added 'compute.1234567' (ECDSA) to the list of known hosts.
 
 
-                                    SSSSSSS
+                                 SSSSSSS
                                 SSSSSSSSS
                                 SSSSSSSSS
                                 SSSSSSSSS
                         SSSS     SSSSSSS     SSSS
-                        SSSSSS               SSSSSS
-                        SSSSSS    SSSSSSS    SSSSSS
+                       SSSSSS               SSSSSS
+                       SSSSSS    SSSSSSS    SSSSSS
                         SSSS    SSSSSSSSS    SSSS
                 SSS             SSSSSSSSS             SSS
-                SSSSS    SSSS    SSSSSSSSS    SSSS    SSSSS
+               SSSSS    SSSS    SSSSSSSSS    SSSS    SSSSS
                 SSS    SSSSSS   SSSSSSSSS   SSSSSS    SSS
-                        SSSSSS    SSSSSSS    SSSSSS
+                       SSSSSS    SSSSSSS    SSSSSS
                 SSS    SSSSSS               SSSSSS    SSS
-                SSSSS    SSSS     SSSSSSS     SSSS    SSSSS
-            S     SSS             SSSSSSSSS             SSS     S
-            SSS            SSSS    SSSSSSSSS    SSSS            SSS
-            S     SSS    SSSSSS   SSSSSSSSS   SSSSSS    SSS     S
-                SSSSS   SSSSSS   SSSSSSSSS   SSSSSS   SSSSS
-            S    SSSSS    SSSS     SSSSSSS     SSSS    SSSSS    S
+               SSSSS    SSSS     SSSSSSS     SSSS    SSSSS
+          S     SSS             SSSSSSSSS             SSS     S
+         SSS            SSSS    SSSSSSSSS    SSSS            SSS
+          S     SSS    SSSSSS   SSSSSSSSS   SSSSSS    SSS     S
+               SSSSS   SSSSSS   SSSSSSSSS   SSSSSS   SSSSS
+          S    SSSSS    SSSS     SSSSSSS     SSSS    SSSSS    S
     S    SSS    SSS                                   SSS    SSS    S
     S     S                                                   S     S
                 SSS
                 SSS
                 SSS
                 SSS
-    SSSSSSSSSSSS   SSS   SSSS       SSSS    SSSSSSSSS   SSSSSSSSSSSSSSSSSSSS
+ SSSSSSSSSSSS   SSS   SSSS       SSSS    SSSSSSSSS   SSSSSSSSSSSSSSSSSSSS
 SSSSSSSSSSSSS   SSS   SSSS       SSSS   SSSSSSSSSS  SSSSSSSSSSSSSSSSSSSSSS
 SSSS            SSS   SSSS       SSSS   SSSS        SSSS     SSSS     SSSS
 SSSS            SSS   SSSS       SSSS   SSSS        SSSS     SSSS     SSSS
 SSSSSSSSSSSS    SSS   SSSS       SSSS   SSSS        SSSS     SSSS     SSSS
-    SSSSSSSSSSSS   SSS   SSSS       SSSS   SSSS        SSSS     SSSS     SSSS
-            SSSS   SSS   SSSS       SSSS   SSSS        SSSS     SSSS     SSSS
-            SSSS   SSS   SSSS       SSSS   SSSS        SSSS     SSSS     SSSS
+ SSSSSSSSSSSS   SSS   SSSS       SSSS   SSSS        SSSS     SSSS     SSSS
+         SSSS   SSS   SSSS       SSSS   SSSS        SSSS     SSSS     SSSS
+         SSSS   SSS   SSSS       SSSS   SSSS        SSSS     SSSS     SSSS
 SSSSSSSSSSSSS   SSS   SSSSSSSSSSSSSSS   SSSS        SSSS     SSSS     SSSS
 SSSSSSSSSSSS    SSS    SSSSSSSSSSSSS    SSSS        SSSS     SSSS     SSSS
 
@@ -262,7 +262,7 @@ Caution: Deleting a project has the following effects:
 
 1. In the GCP Console, go to the Projects page.
 
-    GO TO THE PROJECTS PAGE
+    [GO TO THE PROJECTS PAGE](https://console.cloud.google.com/cloud-resource-manager)
 
 2. In the project list, select the project you want to delete and click Delete
    delete.
