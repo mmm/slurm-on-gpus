@@ -68,15 +68,21 @@ login_disk_size_gb = 20
 
 # Optional network storage fields
 # network_storage is mounted on all instances
+network_storage = [{
+    server_ip     = "<home_vol_ip>"
+    remote_mount  = "/home"
+    local_mount   = "/home"
+    fs_type       = "nfs"
+    mount_options = "defaults,hard,intr"
+  },{
+    server_ip     = "<tools_vol_ip>"
+    remote_mount  = "/tools"
+    local_mount   = "/tools"
+    fs_type       = "nfs"
+    mount_options = "defaults,hard,intr"
+}]                     
+
 # login_network_storage is mounted on controller and login instances
-# network_storage = [{
-#   server_ip     = "<storage host>"
-#   remote_mount  = "/home"
-#   local_mount   = "/home"
-#   fs_type       = "nfs"
-#   mount_options = null
-# }]
-#
 # login_network_storage = [{
 #   server_ip     = "<storage host>"
 #   remote_mount  = "/net_storage"

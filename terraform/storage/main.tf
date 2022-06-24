@@ -15,7 +15,7 @@
 
 resource "google_filestore_instance" "tools" {
   name = "tools"
-  zone = var.zone
+  location = var.zone
   tier = "BASIC_HDD"
 
   file_shares {
@@ -31,7 +31,7 @@ resource "google_filestore_instance" "tools" {
 
 resource "google_filestore_instance" "home" {
   name = "home"
-  zone = var.zone
+  location = var.zone
   tier = "BASIC_HDD"
 
   file_shares {
