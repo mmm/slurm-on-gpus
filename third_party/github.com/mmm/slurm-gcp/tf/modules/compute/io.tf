@@ -147,3 +147,27 @@ variable "intel_select_solution" {
   default     = null
   type        = string
 }
+
+variable "shielded_vm_secure_boot" {
+  description = "Configure the cluster with shielded VMs"
+  default     = null
+  type        = bool
+}
+
+variable "shielded_vm_vtpm" {
+  description = "Configure the cluster with shielded VMs"
+  default     = null
+  type        = bool
+}
+
+variable "shielded_vm_integrity_monitoring" {
+  description = "Configure the cluster with shielded VMs"
+  default     = null
+  type        = bool
+}
+
+variable "cmek_self_link" {
+  description = "Configure the cluster with CMEK-encrypted disks"
+  default     = null
+  type        = string
+}

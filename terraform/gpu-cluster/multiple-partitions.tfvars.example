@@ -2,8 +2,8 @@ cluster_name = "gpu"
 project      = "<project>"
 zone         = "us-central1-c"
 
-# network_name            = "<existing network name>"
-# subnetwork_name         = "<existing subnetwork name>"
+network_name            = "tutorial"
+subnetwork_name         = "tutorial"
 # shared_vpc_host_project = "<vpc host project>"
 
 # disable_controller_public_ips = true
@@ -12,6 +12,8 @@ zone         = "us-central1-c"
 
 # suspend_time       = 300
 # complete_wait_time = 0
+
+#cmek_self_link = "projects/<project>/locations/global/keyRings/tutorial-keyring/cryptoKeys/tutorial-cmek"
 
 controller_machine_type = "n1-standard-2"
 controller_image        = "projects/schedmd-slurm-public/global/images/family/schedmd-slurm-21-08-6-hpc-centos-7"

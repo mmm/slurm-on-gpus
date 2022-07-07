@@ -18,38 +18,45 @@
 locals {
   controller_name = "${var.cluster_name}-controller"
   config = jsonencode({
-    cloudsql                     = var.cloudsql
-    cluster_name                 = var.cluster_name
-    compute_node_scopes          = var.compute_node_scopes
-    intel_select_solution        = var.intel_select_solution
-    compute_node_service_account = var.compute_node_service_account == null ? data.google_compute_default_service_account.default.email : var.compute_node_service_account
-    controller_secondary_disk    = var.secondary_disk
-    external_compute_ips         = !var.disable_compute_public_ips
-    login_network_storage        = var.login_network_storage
-    login_node_count             = var.login_node_count
-    munge_key                    = var.munge_key
-    jwt_key                      = var.jwt_key
-    network_storage              = var.network_storage
-    partitions                   = var.partitions
-    project                      = var.project
-    region                       = var.region
-    shared_vpc_host_project      = var.shared_vpc_host_project
-    suspend_time                 = var.suspend_time
-    complete_wait_time           = var.complete_wait_time
-    vpc_subnet                   = var.subnetwork_name
-    zone                         = var.zone
+    cloudsql                         = var.cloudsql
+    cluster_name                     = var.cluster_name
+    compute_node_scopes              = var.compute_node_scopes
+    intel_select_solution            = var.intel_select_solution
+    compute_node_service_account     = var.compute_node_service_account == null ? data.google_compute_default_service_account.default.email : var.compute_node_service_account
+    controller_secondary_disk        = var.secondary_disk
+    external_compute_ips             = !var.disable_compute_public_ips
+    login_network_storage            = var.login_network_storage
+    login_node_count                 = var.login_node_count
+    munge_key                        = var.munge_key
+    jwt_key                          = var.jwt_key
+    network_storage                  = var.network_storage
+    partitions                       = var.partitions
+    project                          = var.project
+    region                           = var.region
+    shared_vpc_host_project          = var.shared_vpc_host_project
+    suspend_time                     = var.suspend_time
+    complete_wait_time               = var.complete_wait_time
+    vpc_subnet                       = var.subnetwork_name
+    zone                             = var.zone
+    shielded_vm_secure_boot          = var.shielded_vm_secure_boot
+    shielded_vm_vtpm                 = var.shielded_vm_vtpm
+    shielded_vm_integrity_monitoring = var.shielded_vm_integrity_monitoring
+    cmek_self_link                   = var.cmek_self_link
   })
-  custom-controller-install = var.controller_startup_script != null? var.controller_startup_script : file("${path.module}/../../../scripts/custom-controller-install")
-  custom-compute-install = var.compute_startup_script != null? var.compute_startup_script : file("${path.module}/../../../scripts/custom-compute-install")
+  custom-controller-install = var.controller_startup_script != null ? var.controller_startup_script : file("${path.module}/../../../scripts/custom-controller-install")
+  custom-compute-install    = var.compute_startup_script != null ? var.compute_startup_script : file("${path.module}/../../../scripts/custom-compute-install")
 }
 
 resource "google_compute_disk" "secondary" {
   count = var.secondary_disk ? 1 : 0
 
-  name = "secondary"
-  size = var.secondary_disk_size
-  type = var.secondary_disk_type
-  zone = var.zone
+  name                = "secondary"
+  size                = var.secondary_disk_size
+  type                = var.secondary_disk_type
+  zone                = var.zone
+  disk_encryption_key {
+    kms_key_self_link = var.cmek_self_link
+  }
 }
 
 data "google_compute_default_service_account" "default" {}
@@ -71,6 +78,7 @@ resource "google_compute_instance" "controller_node" {
       type  = var.boot_disk_type
       size  = var.boot_disk_size
     }
+    kms_key_self_link = var.cmek_self_link
   }
 
   dynamic "attached_disk" {
@@ -103,6 +111,12 @@ resource "google_compute_instance" "controller_node" {
   service_account {
     email  = var.service_account == null ? data.google_compute_default_service_account.default.email : var.service_account
     scopes = var.scopes
+  }
+
+  shielded_instance_config {
+    enable_secure_boot          = var.shielded_vm_secure_boot
+    enable_vtpm                 = var.shielded_vm_vtpm
+    enable_integrity_monitoring = var.shielded_vm_integrity_monitoring
   }
 
   metadata_startup_script = file("${path.module}/../../../scripts/startup.sh")
@@ -147,6 +161,7 @@ resource "google_compute_instance_from_template" "controller_node" {
         type  = var.boot_disk_type
         size  = var.boot_disk_size
       }
+      kms_key_self_link = var.cmek_self_link
     }
   }
 
@@ -180,6 +195,12 @@ resource "google_compute_instance_from_template" "controller_node" {
   service_account {
     email  = var.service_account == null ? data.google_compute_default_service_account.default.email : var.service_account
     scopes = var.scopes
+  }
+
+  shielded_instance_config {
+    enable_secure_boot          = var.shielded_vm_secure_boot
+    enable_vtpm                 = var.shielded_vm_vtpm
+    enable_integrity_monitoring = var.shielded_vm_integrity_monitoring
   }
 
   metadata_startup_script = file("${path.module}/../../../scripts/startup.sh")

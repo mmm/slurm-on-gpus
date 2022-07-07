@@ -68,6 +68,7 @@ resource "google_compute_instance" "compute_node" {
       type  = each.value.boot_disk_type
       size  = each.value.boot_disk_size
     }
+    kms_key_self_link = var.cmek_self_link
   }
 
   labels = each.value.labels
@@ -103,6 +104,12 @@ resource "google_compute_instance" "compute_node" {
   service_account {
     email  = each.value.sa_email
     scopes = each.value.sa_scopes
+  }
+
+  shielded_instance_config {
+    enable_secure_boot = var.shielded_vm_secure_boot
+    enable_vtpm = var.shielded_vm_vtpm
+    enable_integrity_monitoring = var.shielded_vm_integrity_monitoring
   }
 
   metadata_startup_script = file("${path.module}/../../../scripts/startup.sh")
@@ -150,6 +157,7 @@ resource "google_compute_instance_from_template" "compute_node" {
         type  = each.value.boot_disk_type
         size  = each.value.boot_disk_size
       }
+      kms_key_self_link = var.cmek_self_link
     }
   }
 
@@ -186,6 +194,12 @@ resource "google_compute_instance_from_template" "compute_node" {
   service_account {
     email  = each.value.sa_email
     scopes = each.value.sa_scopes
+  }
+
+  shielded_instance_config {
+    enable_secure_boot = var.shielded_vm_secure_boot
+    enable_vtpm = var.shielded_vm_vtpm
+    enable_integrity_monitoring = var.shielded_vm_integrity_monitoring
   }
 
   metadata_startup_script = file("${path.module}/../../../scripts/startup.sh")
