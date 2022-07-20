@@ -213,6 +213,10 @@ class Config(NSDict):
                    'login_network_storage',
                    'instance_defs',
                    'intel_select_solution',
+                   'shielded_vm_secure_boot',
+                   'shielded_vm_integrity_monitoring',
+                   'shielded_vm_vtpm',
+                   'cmek_self_link',
                    )
     PROPERTIES = (*SAVED_PROPS,
                   'munge_key',

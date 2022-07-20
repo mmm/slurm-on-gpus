@@ -87,6 +87,78 @@ We use [Terraform](terraform.io) for these examples and the latest version is
 already installed in your GCP Cloudshell.
 
 
+## Create a tutorial network
+
+Create a network dedicated to the gpu cluster instead of using the `default`
+network for the project we created.
+
+```bash
+cd terraform/network
+terraform init
+terraform plan
+terraform apply
+```
+
+This creates an network and reserves a static IP address for the license server
+you build in the following section.
+
+Note that this does not allow for egress from the network.  If you'd like that
+uncomment the NAT routers in the `terraform/network/main.tf` Terraform template.
+
+The output of this command will display the IP address reserved for the license
+server.
+
+
+## Create a license server
+
+Create an instance used to run a license manager in GCP.
+
+Change to the `licensing` example directory
+
+```bash
+cd terraform/licensing
+```
+
+Copy over the template variables
+
+```bash
+cp licensing.tfvars.example licensing.tfvars
+```
+
+Edit `licensing.tfvars` to set some missing variables.
+
+You can optionally edit 3 fields: the service account and the encryption key
+we're using to create the license server as well as the static internal IP
+we've reserved for the license server (output of the network step above).
+
+Near the top, edit
+
+```terraform
+cmek_self_link = "<my_key_self_link>"
+service_account =  "<my_service_account_email>"
+license_server_internal_static_ip = "<my_reserved_internal_ip>"
+```
+
+Next, spin up the license server
+
+```bash
+terraform init -var-file licensing.tfvars
+terraform plan -var-file licensing.tfvars
+terraform apply -var-file licensing.tfvars
+```
+
+This creates an example instance.  Note that in this example, the normal
+`provision.sh` script used to customize the instance after startup won't
+work because we're not allowing egress from the example environment.
+It's commented out in the `licensing/main.tf` if you change that.
+
+Note that [Sole-Tenant Nodes](https://cloud.google.com/sole-tenant-nodes)
+are available and commonly used for license and key-management servers.
+
+This process should complete in a few minutes. Once this step is successful,
+you can navigate to the Compute Instances view and should see the new resource.
+
+
 ## Create a Slurm cluster
 
 Create an example slurm cluster with a single `debug` partition that scales
@@ -277,7 +349,18 @@ can still clean up those resources using Terraform.
 From the `gpu-slurm-cluster` sub-directory, run
 
 ```bash
-terraform destroy -var-file gpu.tfvars -auto-approve
+terraform destroy -var-file gpu.tfvars
+cd ../licensing
+terraform destroy -var-file licensing.tfvars
+cd ../network
+terraform destroy
+```
+
+and optionally,
+
+```bash
+cd ../setup
+terraform destroy
 ```
 
 ## What's next

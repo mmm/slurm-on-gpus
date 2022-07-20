@@ -142,6 +142,30 @@ variable "zone" {
   default     = "us-central1-b"
 }
 
+variable "shielded_vm_secure_boot" {
+  description = "Configure the cluster with shielded VMs"
+  default     = null
+  type        = bool
+}
+
+variable "shielded_vm_vtpm" {
+  description = "Configure the cluster with shielded VMs"
+  default     = null
+  type        = bool
+}
+
+variable "shielded_vm_integrity_monitoring" {
+  description = "Configure the cluster with shielded VMs"
+  default     = null
+  type        = bool
+}
+
+variable "cmek_self_link" {
+  description = "Configure the cluster with CMEK-encrypted disks"
+  default     = null
+  type        = string
+}
+
 output "names" {
   value = google_compute_instance.login_node.*.name
 }

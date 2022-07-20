@@ -238,6 +238,30 @@ variable "intel_select_solution" {
   type        = string
 }
 
+variable "shielded_vm_secure_boot" {
+  description = "Configure the cluster with shielded VMs"
+  default     = null
+  type        = bool
+}
+
+variable "shielded_vm_vtpm" {
+  description = "Configure the cluster with shielded VMs"
+  default     = null
+  type        = bool
+}
+
+variable "shielded_vm_integrity_monitoring" {
+  description = "Configure the cluster with shielded VMs"
+  default     = null
+  type        = bool
+}
+
+variable "cmek_self_link" {
+  description = "Configure the cluster with CMEK-encrypted disks"
+  default     = null
+  type        = string
+}
+
 output "controller_node_name" {
   value = var.instance_template == null ? google_compute_instance.controller_node[0].name : google_compute_instance_from_template.controller_node[0].name
 }

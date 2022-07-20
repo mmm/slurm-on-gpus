@@ -109,6 +109,9 @@ def create_instance(compute, instance_def, node_list, placement_group_name):
         config['disks'] = [{
             'boot': True,
             'autoDelete': True,
+            'diskEncryptionKey': {
+                'kmsKeyName': cfg.cmek_self_link
+            },
             'initializeParams': {
                 'sourceImage': instance_def.image,
                 'diskType': instance_def.compute_disk_type,
@@ -122,6 +125,14 @@ def create_instance(compute, instance_def, node_list, placement_group_name):
             'email': cfg.compute_node_service_account,
             'scopes': cfg.compute_node_scopes
         }]
+
+    if cfg.shielded_vm_secure_boot:
+        # Set the instance Shielded VM config
+        config['shieldedInstanceConfig'] = {
+            'enableIntegrityMonitoring': cfg.shielded_vm_integrity_monitoring,
+            'enableSecureBoot': cfg.shielded_vm_secure_boot,
+            'enableVtpm': cfg.shielded_vm_vtpm
+        }
 
     if placement_group_name is not None:
         config['scheduling'] = {
