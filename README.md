@@ -13,8 +13,8 @@ There are a couple of separate examples available here:
 - [Simple gpu-based Slurm cluster](example-simple-gpu-cluster.md).  Just the
   basics please.
 
-- [Hardened gpu-based Slurm cluster](example-hardened-gpu-cluster.md).  While
-  "hardened" might be a strong term here, this is an example of how to build
+- [Running an isolated gpu-based Slurm cluster](example-isolated-gpu-cluster.md).  While
+  "hardened" might be too strong of a term here, this is an example of how to build
   a gpu-based Slurm cluster that might be a little closer in line with what
   your IT Security folks want you to do.  It's an example of how to run
   a gpu-based Slurm cluster with no access to the outside world as well as
