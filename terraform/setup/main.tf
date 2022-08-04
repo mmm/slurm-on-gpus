@@ -13,6 +13,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+locals {
+  tutorial_service_account_roles = [
+    "roles/compute.instanceAdmin.v1",
+    "roles/compute.instanceAdmin", # Beta
+    "roles/compute.storageAdmin",
+    "roles/iam.serviceAccountUser",
+    "roles/logging.logWriter",
+    "roles/monitoring.metricWriter",
+  ]
+}
+
 data "google_project" "project" {}
 
 resource "google_service_account" "tutorial_service_account" {
@@ -20,11 +31,19 @@ resource "google_service_account" "tutorial_service_account" {
   display_name = "tutorial-service-account"
 }
 
-resource "google_service_account_iam_binding" "admin-account-iam" {
-  service_account_id = google_service_account.tutorial_service_account.id
-  role               = "roles/iam.serviceAccountUser"
+# resource "google_service_account_iam_binding" "admin-account-iam" {
+#   service_account_id = google_service_account.tutorial_service_account.id
+#   role               = "roles/iam.serviceAccountUser"
 
-  members = var.tutorial-service-account-users
+#   members = var.tutorial-service-account-users
+# }
+
+resource "google_project_iam_member" "service_account_roles" {
+  for_each = toset(local.tutorial_service_account_roles)
+
+  project = data.google_project.project.name
+  member  = "serviceAccount:${google_service_account.tutorial_service_account.email}"
+  role   = each.value
 }
 
 resource "google_kms_key_ring" "tutorial_keyring" {
