@@ -28,7 +28,7 @@ In this example, you'll create:
 
 ## Costs
 
-If you run the example commands below, you will use billabisolated-le components of
+If you run the example commands below, you will use billable components of
 Google Cloud Platform, including:
 
 - Compute Engine
