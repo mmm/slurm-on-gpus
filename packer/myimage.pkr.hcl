@@ -47,18 +47,18 @@ build {
   #  execute_command = "chmod +x {{ .Path }}; sudo bash -c '{{ .Vars }} {{ .Path }}'"
   #  inline = [
   #    "yum install -y ansible",
-  #    "mkdir -p /tmp/cottontail-install/ansible",
-  #    "chown -Rf centos:centos /tmp/cottontail-install",
+  #    "mkdir -p /tmp/myimage-install/ansible",
+  #    "chown -Rf centos:centos /tmp/myimage-install",
   #  ]
   #}
   #provisioner "file" {
   #  source = "ansible/"
-  #  destination = "/tmp/cottontail-install/ansible"
+  #  destination = "/tmp/myimage-install/ansible"
   #}
   #provisioner "shell" {
   #  execute_command = "chmod +x {{ .Path }}; sudo bash -c '{{ .Vars }} {{ .Path }}'"
   #  inline = [
-  #    "cd /tmp/cottontail-install/ansible",
+  #    "cd /tmp/myimage-install/ansible",
   #    "ansible-playbook playbook.yml --connection=local --inventory-file=local.inventory",
   #  ]
   #}
