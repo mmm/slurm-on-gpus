@@ -1,0 +1,16 @@
+################################
+## PART: install the packages
+##
+## vi: syntax=sh expandtab ts=4
+
+sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
+
+#yum -y install epel-release
+#
+yum -y update
+
+yum -y groupinstall "Developer Tools"
+yum -y groupinstall "Compatibility Libraries"
+
+yum -y install \
+  redhat-lsb
