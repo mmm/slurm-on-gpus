@@ -119,6 +119,7 @@ partitions = [
     enable_placement     = false
     regional_capacity    = false
     regional_policy      = {}
+    bandwidth_tier       = "gvnic_enabled"
     instance_template    = null
   },
   { name                 = "twos"
@@ -141,6 +142,7 @@ partitions = [
     enable_placement     = false
     regional_capacity    = false
     regional_policy      = {}
+    bandwidth_tier       = "gvnic_enabled"
     instance_template    = null
   },
   { name                 = "fours"
@@ -163,6 +165,7 @@ partitions = [
     enable_placement     = false
     regional_capacity    = false
     regional_policy      = {}
+    bandwidth_tier       = "gvnic_enabled"
     instance_template    = null
   },
   #  { name                 = "partition2"
