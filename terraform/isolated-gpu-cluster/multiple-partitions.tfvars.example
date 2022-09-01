@@ -165,7 +165,7 @@ partitions = [
     enable_placement     = false
     regional_capacity    = false
     regional_policy      = {}
-    bandwidth_tier       = "gvnic_enabled"
+    bandwidth_tier       = "tier_1_enabled"
     instance_template    = null
   },
   #  { name                 = "partition2"
