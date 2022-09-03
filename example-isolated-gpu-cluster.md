@@ -33,6 +33,7 @@ Google Cloud Platform, including:
 
 - Compute Engine
 - Cloud Filestore
+- Cloud KMS
 
 You can use the
 [Pricing Calculator](https://cloud.google.com/products/calculator)
@@ -60,7 +61,7 @@ for this project.
 You need to enable Compute Engine and Filestore services as enabling these APIs
 allows you to create the required resources.
 
-[Enable Example Services](https://console.cloud.google.com/flows/enableapi?apiid=compute.googleapis.com,file.googleapis.com,cloudresourcemanager.googleapis.com)
+[Enable Example Services](https://console.cloud.google.com/flows/enableapi?apiid=compute.googleapis.com,file.googleapis.com,cloudresourcemanager.googleapis.com,cloudkms.googleapis.com)
     
 Next, make sure the project you just created is selected in the top of the
 Cloud Console.
