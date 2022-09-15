@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-yum update -y
+#yum update -y
 
 # install benchmarking stuff
 yum install -y mpich-3.2 mpitests-mpich32 iperf3

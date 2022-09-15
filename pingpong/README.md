@@ -7,7 +7,7 @@ Script to create a pair of Compute Engine instances, named "ping" and "pong", wi
 The command:
 
 ```bash
-./create-vms.sh PROJECT REGION ZONE RESOURCE_POLICY MACHINE_TYPE
+./create-vms.sh ZONE PROJECT
 ```
 
 Creates the instance `ping` and `pong` with IPERF3, MPICH 3.2, and the associated OSU microbenchmarks installed.
