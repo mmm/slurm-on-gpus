@@ -26,7 +26,7 @@ create_pingpong_instances() {
   local image_family="${3:-hpc-centos-7}"
   local network="tutorial"
   local subnet="tutorial"
-  local scopes="https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append"
+  local scopes="https://www.googleapis.com/auth/cloud-platform"
   local instance_names="ping pong"
   local resource_policy="pingpong"
   local startup_script="--metadata-from-file=startup-script=./mpibenchmark-startup.sh"
