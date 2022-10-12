@@ -81,8 +81,9 @@ create_cluster_filesystem() {
     if [[ -z "$(gcloud filestore instances list --filter="name ~ ${benchmark_fs}" --format=text)" ]]; then
         gcloud filestore instances create ${benchmark_fs} \
             --zone=${zone} \
-            --file-share=name=home,capacity=1TB \
+            --file-share=name=home,capacity=3TB \
             --network=name=${network} \
+            --tier=basic-ssd \
             ${kms_key}
     fi
 }
