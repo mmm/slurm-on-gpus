@@ -43,6 +43,12 @@ create_pingpong_instances() {
   #local machine_type="a2-highgpu-8g"
   #local accelerator="--accelerator=count=8,type=nvidia-tesla-a100"
 
+  #####################
+  # a2 tests ultra 8g
+  #####################
+  # local machine_type="a2-ultragpu-8g"
+  # local accelerator="--accelerator=count=8,type=nvidia-tesla-a100"
+
   ##############
   # a2 tests 16g
   ##############
